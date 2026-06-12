@@ -31,9 +31,9 @@
   --status-none: #d4d4d8;
   --status-revision: #f59e0b;
   --status-mastered: #22c55e;
-  --code-bg: #1a1a1e;
-  --code-text: #e4e4e7;
-  --code-header-bg: #242428;
+  --code-bg: #f6f8fa;
+  --code-text: #24292e;
+  --code-header-bg: #eaeef2;
   --transition: 150ms cubic-bezier(.4,0,.2,1);
 }
 
@@ -50,6 +50,7 @@
   --accent: #fafafa;
   --accent-hover: #d4d4d8;
   --code-bg: #111114;
+  --code-text: #e4e4e7;
   --code-header-bg: #19191c;
 }
 
@@ -347,25 +348,25 @@ mark { background: color-mix(in srgb, #f59e0b 25%, transparent); color: inherit;
 .code-block-wrapper {
   margin: 18px 0; border-radius: var(--radius);
   overflow: hidden; background: var(--code-bg);
-  border: 1px solid rgba(255,255,255,.06);
+  border: 1px solid var(--border);
 }
 .code-block-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 8px 14px;
   background: var(--code-header-bg);
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid var(--border);
 }
 .code-lang-badge {
   font-family: var(--font-mono); font-size: 12px;
-  color: rgba(255,255,255,.45); letter-spacing: .03em;
+  color: var(--text-muted); letter-spacing: .03em;
 }
 .code-copy-btn {
   font-family: var(--font-mono); font-size: 12px;
-  color: rgba(255,255,255,.4); display: flex; align-items: center; gap: 5px;
+  color: var(--text-muted); display: flex; align-items: center; gap: 5px;
   padding: 2px 8px; border-radius: 4px;
   transition: color .15s, background .15s;
 }
-.code-copy-btn:hover { color: rgba(255,255,255,.8); background: rgba(255,255,255,.08); }
+.code-copy-btn:hover { color: var(--text); background: var(--bg-muted); }
 .code-copy-btn.copied { color: var(--status-mastered); }
 .code-block-wrapper pre {
   margin: 0; padding: 16px 18px; overflow-x: auto;
@@ -420,15 +421,143 @@ mark { background: color-mix(in srgb, #f59e0b 25%, transparent); color: inherit;
   .answer-body { padding: 24px; }
   .sidebar-footer { display: none; }
 }
+/* ─── Back Button (Desktop Default) ─── */
+.back-btn {
+  display: none; /* Hidden on desktop */
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 6px 0;
+  cursor: pointer;
+}
+.back-btn:hover {
+  color: var(--text);
+}
+
+/* ─── Responsive (Mobile Rules) ─── */
 @media (max-width: 768px) {
-  body { overflow: auto; }
-  .app-layout { flex-direction: column; height: auto; overflow: visible; }
-  .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--border); padding: 8px; gap: 4px; }
-  .sidebar-section { padding: 0; }
-  .topic-nav { flex-direction: row; flex-wrap: wrap; gap: 4px; }
-  .topic-item.active::before { display: none; }
-  .sidebar-footer { display: none; }
-  .question-list-panel { width: 100%; border-right: none; border-bottom: 1px solid var(--border); max-height: 300px; }
-  .answer-panel { min-height: 400px; }
-  .answer-body { padding: 16px; }
+  body {
+    overflow: hidden; /* Prevent body overflow, keep app layout scrollable */
+  }
+  .app-layout {
+    flex-direction: column !important;
+    height: calc(100vh - var(--header-h) - var(--footer-h)) !important;
+    overflow: hidden !important;
+  }
+  
+  /* Part B, Item 1: Topic Sidebar horizontal navigation */
+  .sidebar {
+    width: 100% !important;
+    height: 48px !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    flex-shrink: 0 !important;
+  }
+  .sidebar-section {
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  .sidebar-label {
+    display: none !important;
+  }
+  .topic-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 8px !important;
+    width: 100% !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .topic-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .topic-item {
+    width: auto !important;
+    white-space: nowrap !important;
+    padding: 6px 12px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+  .topic-label {
+    display: inline !important; /* Force topic labels on mobile */
+    font-size: 13px !important;
+  }
+  .topic-item.active::before {
+    display: none !important;
+  }
+  .sidebar-footer {
+    display: none !important;
+  }
+
+  /* Part B, Item 2: Single-column view switching classes */
+  .app-layout:not(.show-answer) .answer-panel {
+    display: none !important;
+  }
+  .app-layout.show-answer .question-list-panel {
+    display: none !important;
+  }
+  .app-layout.show-answer .answer-panel {
+    display: flex !important;
+  }
+  .app-layout:not(.show-answer) .question-list-panel {
+    display: flex !important;
+    width: 100% !important;
+  }
+  
+  .question-list-panel {
+    border-right: none !important;
+  }
+
+  /* Part B, Item 3: Toolbar design */
+  .answer-toolbar {
+    justify-content: space-between !important;
+    position: sticky !important;
+    top: 0 !important;
+    background: var(--bg) !important;
+    z-index: 10 !important;
+    border-bottom: 1px solid var(--border-muted) !important;
+    padding: 8px 16px !important;
+    width: 100% !important;
+  }
+  .back-btn {
+    display: inline-flex !important; /* Visible only on mobile */
+  }
+
+  /* Part B, Item 4: Search bar layout wrapper adjustments */
+  .header {
+    height: auto !important;
+    flex-wrap: wrap !important;
+    padding: 10px 16px !important;
+    gap: 8px !important;
+  }
+  .header-left {
+    min-width: 0 !important;
+    flex: 1 !important;
+  }
+  .brand-tagline {
+    display: none !important;
+  }
+  .header-center {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: none !important;
+    order: 3 !important;
+    margin-top: 4px !important;
+  }
+  .header-right {
+    order: 2 !important;
+  }
+
+  .answer-body {
+    padding: 20px !important;
+  }
 }

@@ -14,12 +14,15 @@
   
   // Caches
   const mdCache = {};        // slug → raw markdown
-  const mdCacheLower = {};   // slug → lowercased raw markdown (precomputed to optimize search)
+  // PART A, Item 3: Cache lowercased markdown alongside raw markdown
+  const mdCacheLower = {};   // slug → lowercased raw markdown
   const contentCache = {};   // slug → rendered HTML
   
-  // Performance Indexes
-  let searchIndex = [];      // flat array of pre-lowercased items for instant search lookup
-  let statusMap = {};        // in-memory revision status cache (write-through cache)
+  // PART A, Item 3: Precomputed search index built once at initialization
+  let searchIndex = [];      
+  
+  // PART A, Item 2: In-memory revision status cache (write-through cache)
+  let statusMap = {};        
 
   // ─── DOM refs ───
   const $ = (sel) => document.querySelector(sel);
@@ -49,11 +52,11 @@
     debugging: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="9" r="4" stroke="currentColor" stroke-width="1.3"/><line x1="8" y1="2" x2="8" y2="5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="3" y1="6" x2="5" y2="7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="13" y1="6" x2="11" y2="7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="3" y1="12" x2="5" y2="11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="13" y1="12" x2="11" y2="11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
   };
 
-  // ─── Revision Status (localStorage Write-Through Cache) ───
+  // ─── Revision Status (PART A, Item 2: Write-Through Cache) ───
   const STATUS_CYCLE = ['none', 'revision', 'mastered'];
   const STATUS_KEY = 'sigtrap-revision';
 
-  // Loads revision statuses once at start to save storage access overhead
+  // Loads revision statuses once on initialization
   function initStatuses() {
     try {
       statusMap = JSON.parse(localStorage.getItem(STATUS_KEY)) || {};
@@ -62,7 +65,7 @@
     }
   }
 
-  // Writes memory cache back to localStorage on state changes
+  // Writes cached values to localStorage only on changes
   function saveStatuses() {
     try {
       localStorage.setItem(STATUS_KEY, JSON.stringify(statusMap));
@@ -104,7 +107,7 @@
   function updateHljsTheme(theme) {
     const link = document.getElementById('hljs-theme');
     if (link) {
-      // Swapping correctly between dark and light CDN stylesheets
+      // PART A, Item 6: Swaps correctly between dark and light styles (intentional visual fix)
       link.href = theme === 'dark'
         ? 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'
         : 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
@@ -323,7 +326,7 @@
 
   // ─── Select Topic ───
   function selectTopic(key) {
-    // Optimization: Guard against redundant re-render if selecting active topic
+    // PART A, Item 5: Avoid redundant rendering of active topic
     if (activeTopic && activeTopic.key === key) return;
 
     activeTopic = manifest.topics.find(t => t.key === key);
@@ -342,28 +345,30 @@
     renderQuestionList();
   }
 
-  // Optimization: Render list with DOM diffing rather than full innerHTML rebuilds
+  // PART A, Item 5: Render list with DOM diffing rather than full innerHTML rebuilds
   function renderQuestionList() {
     if (!activeTopic) return;
 
-    const existingCards = {};
+    // Map existing cards by slug
+    const currentCards = {};
     questionList.querySelectorAll('.question-card').forEach(card => {
-      existingCards[card.dataset.slug] = card;
+      currentCards[card.dataset.slug] = card;
     });
 
-    // Empty the parent layout container
-    questionList.innerHTML = '';
+    // Keep track of which slugs were kept
+    const keptSlugs = new Set();
 
     activeTopic.questions.forEach(q => {
       const statusKey = `${activeTopic.key}/${q.slug}`;
       const status = getStatus(statusKey);
+      keptSlugs.add(q.slug);
 
-      let card = existingCards[q.slug];
+      let card = currentCards[q.slug];
       if (card) {
-        // Update selected class in-place
+        // Update selection class in-place
         card.classList.toggle('selected', activeQuestion && activeQuestion.slug === q.slug);
 
-        // Update status dot in-place
+        // Update status dot visual class and data key attribute in-place (Item 5)
         const dot = card.querySelector('.status-dot');
         if (dot) {
           dot.className = `status-dot dot-${status}`;
@@ -387,21 +392,29 @@
             </svg>
           </span>
         `;
-
-        // Attach listeners once
-        const dot = card.querySelector('.status-dot');
-        dot.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const newStatus = cycleStatus(statusKey);
-          dot.className = `status-dot dot-${newStatus}`;
-        });
-
-        card.addEventListener('click', () => selectQuestion(q));
       }
 
-      // Re-insert card
+      // Re-insert card in correct order
       questionList.appendChild(card);
     });
+
+    // Remove any cards that are no longer part of the list
+    Object.keys(currentCards).forEach(slug => {
+      if (!keptSlugs.has(slug)) {
+        currentCards[slug].remove();
+      }
+    });
+  }
+
+  // Helper to extract language names from class="language-xyz" in generated HTML (PART A, Item 4)
+  function extractLanguagesFromHtml(html) {
+    const langs = new Set();
+    const regex = /class="language-(\w+)"/g;
+    let match;
+    while ((match = regex.exec(html)) !== null) {
+      langs.add(match[1]);
+    }
+    return Array.from(langs);
   }
 
   // ─── Select Question ───
@@ -419,6 +432,9 @@
     // Show answer panel layout
     answerEmpty.hidden = true;
     answerContent.hidden = false;
+    
+    // PART B, Item 2: Single-column view switching on mobile
+    $('.app-layout').classList.add('show-answer');
 
     // Load markdown content dynamically
     if (!contentCache[cacheKey]) {
@@ -436,21 +452,43 @@
         }
         contentCache[cacheKey] = renderMarkdown(md, q.title);
       } catch (err) {
-        contentCache[cacheKey] = `<h1>${escapeHtml(q.title)}</h1><p style="color:var(--text-muted);">Failed to load content. If using file://, start a local server:<br><code>python3 -m http.server 8000</code></p>`;
+        contentCache[cacheKey] = `<h1>${escapeHtml(q.title)}</h1><p style="color:var(--text-muted);">Failed to load content.</p>`;
       }
     }
 
+    // PART A, Item 4: Synchronously load required highlight.js language scripts first (prevents flash of unstyled code)
+    const neededLangs = extractLanguagesFromHtml(contentCache[cacheKey]);
+    await Promise.all(neededLangs.map(lang => loadLanguageScript(lang)));
+
     answerBody.innerHTML = contentCache[cacheKey];
 
-    // Optimization: Observe code blocks for lazy viewport-based syntax highlighting
+    // Reset lazy observer
+    highlightObserver.disconnect();
+
+    // PART A, Item 4: Synchronously highlight code blocks in viewport; lazy observer for offscreen blocks
+    const scrollContainerHeight = answerBody.clientHeight || window.innerHeight;
     answerBody.querySelectorAll('pre code').forEach(block => {
-      if (block.dataset.highlighted) return;
-      highlightObserver.observe(block);
+      const rect = block.getBoundingClientRect();
+      const isVisible = rect.top < scrollContainerHeight + 100;
+      
+      if (isVisible) {
+        if (window.hljs) {
+          hljs.highlightElement(block);
+          block.dataset.highlighted = 'true';
+        }
+      } else {
+        highlightObserver.observe(block);
+      }
     });
   }
 
-  // ─── Search Index Builder ───
-  // Pre-computes search queries once at initialization to bypass CPU lowercasing overhead on keypresses
+  // PART B, Item 2: mobile back button view switcher
+  function closeAnswerPanel() {
+    $('.app-layout').classList.remove('show-answer');
+  }
+
+  // ─── Search Index Builder (PART A, Item 3) ───
+  // Pre-computes search queries once at initialization
   function buildSearchIndex() {
     searchIndex = [];
     if (!manifest) return;
@@ -479,7 +517,7 @@
     });
 
     searchInput.addEventListener('focus', () => {
-      // Lazy load markdown content in the background ONLY when user intends to search
+      // PART A, Item 1: Lazy load markdown content in the background ONLY when user intends to search
       if (!preloadingStarted) {
         preloadingStarted = true;
         startLazyPreloading();
@@ -520,7 +558,7 @@
       const titleMatch = item.titleLower.includes(queryClean);
       const tagMatch = item.tagsLower.some(t => t.includes(queryClean));
       
-      // Optimization: Content-matches only execute against already preloaded md cache entries
+      // PART A, Item 3: Content-matches only execute against already preloaded/cached entries
       const cacheKey = `${item.topicKey}/${item.slug}`;
       const cachedLower = mdCacheLower[cacheKey];
       const contentMatch = cachedLower && cachedLower.includes(queryClean);
@@ -594,8 +632,7 @@
     selectQuestion(pick.question);
   }
 
-  // ─── Throttled Lazy Preloading (Batches of 3, Idle-time) ───
-  // Resolves local server concurrency locking by fetching in small batches over idle callbacks
+  // PART A, Item 1: Throttled Lazy Preloading (Batches of 3, Idle-time)
   function startLazyPreloading() {
     if (!manifest) return;
 
@@ -618,7 +655,7 @@
       const batch = queue.slice(index, index + BATCH_SIZE);
       index += BATCH_SIZE;
 
-      // Fetch batch elements in parallel
+      // Fetch batch elements in parallel (max 3 concurrent)
       const promises = batch.map(async (item) => {
         try {
           const resp = await fetch(item.file);
@@ -628,13 +665,13 @@
             mdCacheLower[item.key] = text.toLowerCase();
           }
         } catch (err) {
-          // Ignore preloading failures; selectQuestion will fall back to load on demand
+          // Ignore preloading failures
         }
       });
 
       await Promise.all(promises);
 
-      // Defer next preloading block to keep main thread completely unblocked
+      // Defer next preloading block using idle callback
       if (index < queue.length) {
         if (window.requestIdleCallback) {
           window.requestIdleCallback(() => setTimeout(loadNextBatch, 500));
@@ -651,8 +688,7 @@
     }
   }
 
-  // ─── Dynamic highlight.js Language Module Loader ───
-  // Dynamically injects script tags for syntax highlighting only on demand
+  // PART A, Item 4: Dynamic highlight.js Language Module Loader
   const loadedLanguages = new Set();
   function loadLanguageScript(lang) {
     const langMap = {
@@ -693,8 +729,7 @@
     });
   }
 
-  // ─── IntersectionObserver for Lazy Syntax Highlighting ───
-  // Code block syntax highlighting triggers ONLY when scrolled into the viewport
+  // PART A, Item 4: IntersectionObserver for Lazy Syntax Highlighting
   let highlightObserver = null;
   function initHighlightObserver() {
     highlightObserver = new IntersectionObserver((entries, observer) => {
@@ -719,7 +754,7 @@
           observer.unobserve(block);
         }
       });
-    }, { root: null, rootMargin: '50px' });
+    }, { root: answerBody, rootMargin: '50px' });
   }
 
   // ─── Initialize ───
@@ -730,6 +765,31 @@
     initSearch();
     themeToggle.addEventListener('click', toggleTheme);
     randomBtn.addEventListener('click', triggerRandom);
+
+    // PART A, Item 5: Delegated click handler for question cards and status dots
+    questionList.addEventListener('click', (e) => {
+      const dot = e.target.closest('.status-dot');
+      if (dot) {
+        e.stopPropagation();
+        const statusKey = dot.dataset.key;
+        const newStatus = cycleStatus(statusKey);
+        dot.className = `status-dot dot-${newStatus}`;
+        return;
+      }
+
+      const card = e.target.closest('.question-card');
+      if (card) {
+        const slug = card.dataset.slug;
+        const q = activeTopic.questions.find(item => item.slug === slug);
+        if (q) selectQuestion(q);
+      }
+    });
+
+    // PART B, Item 2: Mobile Back Button Listener
+    const backBtn = $('#back-btn');
+    if (backBtn) {
+      backBtn.addEventListener('click', closeAnswerPanel);
+    }
 
     try {
       const resp = await fetch('manifest.json');
