@@ -131,6 +131,8 @@ python3 generate_manifest.py
 
 This script scans the `questions/` directories, validates the YAML frontmatter, and outputs the updated `manifest.json`.
 
+> **Note:** `manifest.json` only stores metadata (title, tags, difficulty, file path) for navigation and search. If you're only editing the **body content** of an existing question without changing its frontmatter, you don't need to regenerate the manifest. Regeneration is only required when you **add/remove** a question file or change its `title`, `tags`, or `difficulty`.
+
 ### 6. Commit and Push
 
 ```bash
