@@ -20,17 +20,40 @@ OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "manifest
 
 # Topic display names and ordering
 TOPIC_META = {
-    "git":        {"label": "Git & GitHub",  "icon": "git"},
-    "linux":      {"label": "Linux",         "icon": "linux"},
-    "coa":        {"label": "COA",           "icon": "coa"},
-    "networking": {"label": "Networking",     "icon": "networking"},
-    "cpp":        {"label": "C++",           "icon": "cpp"},
-    "ml":         {"label": "ML",            "icon": "ml"},
-    "os":         {"label": "OS",            "icon": "os"},
-    "debugging":  {"label": "Debugging",     "icon": "debugging"},
+    "git":                   {"label": "Git & GitHub",             "icon": "git"},
+    "linux":                 {"label": "Linux",                    "icon": "linux"},
+    "coa":                   {"label": "COA",                      "icon": "coa"},
+    "networking":            {"label": "Networking",               "icon": "networking"},
+    "cpp":                   {"label": "C++",                      "icon": "cpp"},
+    "oops":                  {"label": "OOPs",                     "icon": "oops"},
+    "python":                {"label": "Python",                   "icon": "python"},
+    "backend-system-design": {"label": "Backend & System Design",  "icon": "backend-system-design"},
+    "ml":                    {"label": "ML",                       "icon": "ml"},
+    "dl":                    {"label": "DL",                       "icon": "dl"},
+    "os":                    {"label": "OS",                       "icon": "os"},
+    "debugging":             {"label": "Debugging",                "icon": "debugging"},
+    "quant":                 {"label": "Quant",                    "icon": "quant"},
+    "general":               {"label": "General",                  "icon": "general"},
+    "important-tips":        {"label": "Important Tips",           "icon": "important-tips"},
 }
 
-TOPIC_ORDER = ["git", "linux", "coa", "networking", "cpp", "ml", "os", "debugging"]
+TOPIC_ORDER = [
+    "git",
+    "linux",
+    "coa",
+    "networking",
+    "cpp",
+    "oops",
+    "python",
+    "backend-system-design",
+    "ml",
+    "dl",
+    "os",
+    "debugging",
+    "quant",
+    "general",
+    "important-tips"
+]
 
 
 def parse_frontmatter(filepath):

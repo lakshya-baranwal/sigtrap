@@ -573,6 +573,63 @@
       ]
     },
     {
+      "key": "oops",
+      "label": "OOPs",
+      "icon": "oops",
+      "questions": [
+        {
+          "slug": "polymorphism",
+          "title": "What is polymorphism and how does virtual dispatch work in C++?",
+          "tags": [
+            "oops",
+            "polymorphism",
+            "vtable",
+            "virtual"
+          ],
+          "difficulty": "medium",
+          "file": "questions/oops/polymorphism.md"
+        }
+      ]
+    },
+    {
+      "key": "python",
+      "label": "Python",
+      "icon": "python",
+      "questions": [
+        {
+          "slug": "gil",
+          "title": "What is the Python Global Interpreter Lock (GIL)?",
+          "tags": [
+            "python",
+            "concurrency",
+            "gil",
+            "threading"
+          ],
+          "difficulty": "medium",
+          "file": "questions/python/gil.md"
+        }
+      ]
+    },
+    {
+      "key": "backend-system-design",
+      "label": "Backend & System Design",
+      "icon": "backend-system-design",
+      "questions": [
+        {
+          "slug": "load-balancing",
+          "title": "What is a Load Balancer and what algorithms are used?",
+          "tags": [
+            "backend",
+            "system-design",
+            "scaling",
+            "load-balancing"
+          ],
+          "difficulty": "medium",
+          "file": "questions/backend-system-design/load-balancing.md"
+        }
+      ]
+    },
+    {
       "key": "ml",
       "label": "ML",
       "icon": "ml",
@@ -661,6 +718,25 @@
           ],
           "difficulty": "medium",
           "file": "questions/ml/overfitting.md"
+        }
+      ]
+    },
+    {
+      "key": "dl",
+      "label": "DL",
+      "icon": "dl",
+      "questions": [
+        {
+          "slug": "gradient-vanishing",
+          "title": "What is the Vanishing Gradient Problem and how is it resolved?",
+          "tags": [
+            "dl",
+            "deep-learning",
+            "training",
+            "backprop"
+          ],
+          "difficulty": "medium",
+          "file": "questions/dl/gradient-vanishing.md"
         }
       ]
     },
@@ -843,6 +919,63 @@
           ],
           "difficulty": "medium",
           "file": "questions/debugging/valgrind.md"
+        }
+      ]
+    },
+    {
+      "key": "quant",
+      "label": "Quant",
+      "icon": "quant",
+      "questions": [
+        {
+          "slug": "black-scholes",
+          "title": "What is the Black-Scholes Model?",
+          "tags": [
+            "quant",
+            "finance",
+            "options",
+            "math"
+          ],
+          "difficulty": "hard",
+          "file": "questions/quant/black-scholes.md"
+        }
+      ]
+    },
+    {
+      "key": "general",
+      "label": "General",
+      "icon": "general",
+      "questions": [
+        {
+          "slug": "time-complexity",
+          "title": "How do you calculate Time and Space Complexity?",
+          "tags": [
+            "general",
+            "algorithms",
+            "dsa",
+            "complexity"
+          ],
+          "difficulty": "easy",
+          "file": "questions/general/time-complexity.md"
+        }
+      ]
+    },
+    {
+      "key": "important-tips",
+      "label": "Important Tips",
+      "icon": "important-tips",
+      "questions": [
+        {
+          "slug": "star-method",
+          "title": "What is the STAR Method for Behavioral Interviews?",
+          "tags": [
+            "tips",
+            "behavioral",
+            "interview",
+            "career"
+          ],
+          "difficulty": "easy",
+          "file": "questions/important-tips/star-method.md"
         }
       ]
     }
