@@ -39,18 +39,6 @@
           "file": "questions/git/detached-head.md"
         },
         {
-          "slug": "elf",
-          "title": "What is ELF?",
-          "tags": [
-            "linux",
-            "elf",
-            "binary",
-            "executable"
-          ],
-          "difficulty": "medium",
-          "file": "questions/git/elf.md"
-        },
-        {
           "slug": "fork-vs-clone",
           "title": "Difference between git fork and git clone",
           "tags": [
@@ -148,6 +136,18 @@
       "label": "Linux",
       "icon": "linux",
       "questions": [
+        {
+          "slug": "elf",
+          "title": "What is ELF?",
+          "tags": [
+            "linux",
+            "elf",
+            "binary",
+            "executable"
+          ],
+          "difficulty": "medium",
+          "file": "questions/linux/elf.md"
+        },
         {
           "slug": "inode",
           "title": "What is an inode?",
@@ -630,46 +630,30 @@
       ]
     },
     {
+      "key": "databases",
+      "label": "Databases",
+      "icon": "databases",
+      "questions": [
+        {
+          "slug": "indexing",
+          "title": "How do Database Indexes work?",
+          "tags": [
+            "databases",
+            "indexing",
+            "b-tree",
+            "hash-index",
+            "sql"
+          ],
+          "difficulty": "medium",
+          "file": "questions/databases/indexing.md"
+        }
+      ]
+    },
+    {
       "key": "ml",
       "label": "ML",
       "icon": "ml",
       "questions": [
-        {
-          "slug": "attention",
-          "title": "What is the attention mechanism?",
-          "tags": [
-            "ml",
-            "attention",
-            "transformer",
-            "self-attention"
-          ],
-          "difficulty": "hard",
-          "file": "questions/ml/attention.md"
-        },
-        {
-          "slug": "backpropagation",
-          "title": "What is backpropagation?",
-          "tags": [
-            "ml",
-            "backprop",
-            "neural-networks",
-            "gradients"
-          ],
-          "difficulty": "hard",
-          "file": "questions/ml/backpropagation.md"
-        },
-        {
-          "slug": "batch-normalization",
-          "title": "What is batch normalization?",
-          "tags": [
-            "ml",
-            "batch-norm",
-            "training",
-            "deep-learning"
-          ],
-          "difficulty": "medium",
-          "file": "questions/ml/batch-normalization.md"
-        },
         {
           "slug": "bias-variance",
           "title": "What is the bias-variance tradeoff?",
@@ -682,18 +666,6 @@
           ],
           "difficulty": "medium",
           "file": "questions/ml/bias-variance.md"
-        },
-        {
-          "slug": "cnn-vs-rnn",
-          "title": "What is the difference between CNN and RNN?",
-          "tags": [
-            "ml",
-            "CNN",
-            "RNN",
-            "architectures"
-          ],
-          "difficulty": "medium",
-          "file": "questions/ml/cnn-vs-rnn.md"
         },
         {
           "slug": "gradient-descent",
@@ -726,6 +698,54 @@
       "label": "DL",
       "icon": "dl",
       "questions": [
+        {
+          "slug": "attention",
+          "title": "What is the attention mechanism?",
+          "tags": [
+            "ml",
+            "attention",
+            "transformer",
+            "self-attention"
+          ],
+          "difficulty": "hard",
+          "file": "questions/dl/attention.md"
+        },
+        {
+          "slug": "backpropagation",
+          "title": "What is backpropagation?",
+          "tags": [
+            "ml",
+            "backprop",
+            "neural-networks",
+            "gradients"
+          ],
+          "difficulty": "hard",
+          "file": "questions/dl/backpropagation.md"
+        },
+        {
+          "slug": "batch-normalization",
+          "title": "What is batch normalization?",
+          "tags": [
+            "ml",
+            "batch-norm",
+            "training",
+            "deep-learning"
+          ],
+          "difficulty": "medium",
+          "file": "questions/dl/batch-normalization.md"
+        },
+        {
+          "slug": "cnn-vs-rnn",
+          "title": "What is the difference between CNN and RNN?",
+          "tags": [
+            "ml",
+            "CNN",
+            "RNN",
+            "architectures"
+          ],
+          "difficulty": "medium",
+          "file": "questions/dl/cnn-vs-rnn.md"
+        },
         {
           "slug": "gradient-vanishing",
           "title": "What is the Vanishing Gradient Problem and how is it resolved?",

@@ -49,7 +49,8 @@
     cpp: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><text x="8" y="12" text-anchor="middle" font-size="10" font-weight="700" font-family="monospace" fill="currentColor">C+</text></svg>',
     oops: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="5.5" y="2" width="5" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="2" y="10" width="5" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="10" width="5" height="4" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M8 6v2M4.5 8h7v2M4.5 10v-2" stroke="currentColor" stroke-width="1.2"/></svg>',
     python: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 2H6a3 3 0 0 0-3 3v2h2v4a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3h-2V2z" stroke="currentColor" stroke-width="1.2"/><circle cx="5" cy="5" r="0.8" fill="currentColor"/><circle cx="11" cy="11" r="0.8" fill="currentColor"/></svg>',
-    'backend-system-design': '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="4" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/><path d="M3 4v4c0 1.1.9 2 5 2s5-.9 5-2V4M3 8v4c0 1.1.9 2 5 2s5-.9 5-2V8" stroke="currentColor" stroke-width="1.2"/></svg>',
+    'backend-system-design': '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.2"/><circle cx="5" cy="4" r="0.8" fill="currentColor"/><circle cx="5" cy="8" r="0.8" fill="currentColor"/><circle cx="5" cy="12" r="0.8" fill="currentColor"/><line x1="8" y1="4" x2="11" y2="4" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="12" x2="11" y2="12" stroke="currentColor" stroke-width="1.2"/></svg>',
+    databases: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="4" rx="5" ry="2" stroke="currentColor" stroke-width="1.2"/><path d="M3 4v4c0 1.1.9 2 5 2s5-.9 5-2V4M3 8v4c0 1.1.9 2 5 2s5-.9 5-2V8" stroke="currentColor" stroke-width="1.2"/></svg>',
     ml: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="8" r="1.5" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="4" r="1.5" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="12" r="1.5" stroke="currentColor" stroke-width="1.2"/><line x1="5.5" y1="7.5" x2="10.5" y2="4.5" stroke="currentColor" stroke-width="1.1"/><line x1="5.5" y1="8.5" x2="10.5" y2="11.5" stroke="currentColor" stroke-width="1.1"/></svg>',
     dl: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.8"/><rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.9" fill="var(--bg)"/><rect x="6" y="6" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.2" fill="var(--bg)"/></svg>',
     os: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><line x1="5" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="11" x2="8" y2="14" stroke="currentColor" stroke-width="1.3"/></svg>',
@@ -126,6 +127,19 @@
     // Remove frontmatter
     let content = md.replace(/^---[\s\S]*?---\n*/, '');
 
+    // Extract math blocks to prevent markdown parsing issues inside equations
+    const mathBlocks = [];
+    // 1. Display math: $$ ... $$
+    content = content.replace(/\$\$([\s\S]*?)\$\$/g, (match, math) => {
+      mathBlocks.push({ type: 'display', math });
+      return `\n<!--MATH:${mathBlocks.length - 1}-->\n`;
+    });
+    // 2. Inline math: $ ... $
+    content = content.replace(/\$([^$\n]+?)\$/g, (match, math) => {
+      mathBlocks.push({ type: 'inline', math });
+      return `<!--MATH:${mathBlocks.length - 1}-->`;
+    });
+
     // Fenced code blocks
     content = content.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
       const l = lang || 'text';
@@ -161,6 +175,12 @@
         continue;
       }
       if (line.startsWith('<!--/CODE-->')) {
+        html += line + '\n';
+        i++;
+        continue;
+      }
+      if (line.startsWith('<!--MATH:')) {
+        if (inList) { html += `</${listType}>`; inList = false; }
         html += line + '\n';
         i++;
         continue;
@@ -250,6 +270,16 @@
       continue;
     }
     if (inList) html += `</${listType}>`;
+
+    // Restore math blocks
+    html = html.replace(/<!--MATH:(\d+)-->/g, (match, index) => {
+      const block = mathBlocks[parseInt(index, 10)];
+      if (block.type === 'display') {
+        return `$$${block.math}$$`;
+      } else {
+        return `$${block.math}$`;
+      }
+    });
 
     return html;
   }
@@ -468,6 +498,19 @@
     await Promise.all(neededLangs.map(lang => loadLanguageScript(lang)));
 
     answerBody.innerHTML = contentCache[cacheKey];
+
+    // Render mathematical equations using KaTeX if available
+    if (window.renderMathInElement) {
+      renderMathInElement(answerBody, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false
+      });
+    }
 
     // Reset lazy observer
     highlightObserver.disconnect();
