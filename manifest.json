@@ -1,0 +1,850 @@
+{
+  "topics": [
+    {
+      "key": "git",
+      "label": "Git & GitHub",
+      "icon": "git",
+      "questions": [
+        {
+          "slug": "bisect",
+          "title": "What is git bisect?",
+          "tags": [
+            "git",
+            "bisect",
+            "debugging"
+          ],
+          "difficulty": "medium",
+          "file": "questions/git/bisect.md"
+        },
+        {
+          "slug": "cherry-pick",
+          "title": "What is git cherry-pick?",
+          "tags": [
+            "git",
+            "cherry-pick",
+            "commits"
+          ],
+          "difficulty": "medium",
+          "file": "questions/git/cherry-pick.md"
+        },
+        {
+          "slug": "detached-head",
+          "title": "What is a detached HEAD state?",
+          "tags": [
+            "git",
+            "head",
+            "branches"
+          ],
+          "difficulty": "easy",
+          "file": "questions/git/detached-head.md"
+        },
+        {
+          "slug": "elf",
+          "title": "What is ELF?",
+          "tags": [
+            "linux",
+            "elf",
+            "binary",
+            "executable"
+          ],
+          "difficulty": "medium",
+          "file": "questions/git/elf.md"
+        },
+        {
+          "slug": "fork-vs-clone",
+          "title": "Difference between git fork and git clone",
+          "tags": [
+            "git",
+            "github",
+            "fork",
+            "clone"
+          ],
+          "difficulty": "easy",
+          "file": "questions/git/fork-vs-clone.md"
+        },
+        {
+          "slug": "hooks",
+          "title": "What are git hooks?",
+          "tags": [
+            "git",
+            "hooks",
+            "automation"
+          ],
+          "difficulty": "medium",
+          "file": "questions/git/hooks.md"
+        },
+        {
+          "slug": "merge-conflicts",
+          "title": "What are merge conflicts?",
+          "tags": [
+            "git",
+            "merge",
+            "conflicts"
+          ],
+          "difficulty": "medium",
+          "file": "questions/git/merge-conflicts.md"
+        },
+        {
+          "slug": "pull-request",
+          "title": "What is a pull request?",
+          "tags": [
+            "git",
+            "github",
+            "pull-request",
+            "code-review"
+          ],
+          "difficulty": "easy",
+          "file": "questions/git/pull-request.md"
+        },
+        {
+          "slug": "rebasing",
+          "title": "What is rebasing in git?",
+          "tags": [
+            "git",
+            "rebase",
+            "history"
+          ],
+          "difficulty": "medium",
+          "file": "questions/git/rebasing.md"
+        },
+        {
+          "slug": "reset-vs-revert",
+          "title": "What is the difference between git reset and git revert?",
+          "tags": [
+            "git",
+            "reset",
+            "revert",
+            "undo"
+          ],
+          "difficulty": "medium",
+          "file": "questions/git/reset-vs-revert.md"
+        },
+        {
+          "slug": "staging",
+          "title": "What is staging in git?",
+          "tags": [
+            "git",
+            "staging",
+            "index"
+          ],
+          "difficulty": "easy",
+          "file": "questions/git/staging.md"
+        },
+        {
+          "slug": "stash",
+          "title": "What is git stash?",
+          "tags": [
+            "git",
+            "stash",
+            "workflow"
+          ],
+          "difficulty": "easy",
+          "file": "questions/git/stash.md"
+        }
+      ]
+    },
+    {
+      "key": "linux",
+      "label": "Linux",
+      "icon": "linux",
+      "questions": [
+        {
+          "slug": "inode",
+          "title": "What is an inode?",
+          "tags": [
+            "linux",
+            "filesystem",
+            "inode"
+          ],
+          "difficulty": "medium",
+          "file": "questions/linux/inode.md"
+        },
+        {
+          "slug": "proc-filesystem",
+          "title": "What is the /proc filesystem?",
+          "tags": [
+            "linux",
+            "proc",
+            "virtual-filesystem",
+            "kernel"
+          ],
+          "difficulty": "medium",
+          "file": "questions/linux/proc-filesystem.md"
+        },
+        {
+          "slug": "process-vs-thread",
+          "title": "What is the difference between a process and a thread?",
+          "tags": [
+            "linux",
+            "process",
+            "thread",
+            "concurrency"
+          ],
+          "difficulty": "easy",
+          "file": "questions/linux/process-vs-thread.md"
+        },
+        {
+          "slug": "ptrace",
+          "title": "What is ptrace?",
+          "tags": [
+            "linux",
+            "ptrace",
+            "debugging",
+            "syscall"
+          ],
+          "difficulty": "medium",
+          "file": "questions/linux/ptrace.md"
+        },
+        {
+          "slug": "signals",
+          "title": "What are Linux signals?",
+          "tags": [
+            "linux",
+            "signals",
+            "IPC",
+            "SIGINT",
+            "SIGKILL"
+          ],
+          "difficulty": "medium",
+          "file": "questions/linux/signals.md"
+        },
+        {
+          "slug": "sigsegv",
+          "title": "What causes SIGSEGV?",
+          "tags": [
+            "linux",
+            "signals",
+            "segfault",
+            "memory"
+          ],
+          "difficulty": "medium",
+          "file": "questions/linux/sigsegv.md"
+        },
+        {
+          "slug": "soft-vs-hard-links",
+          "title": "What is the difference between soft links and hard links?",
+          "tags": [
+            "linux",
+            "filesystem",
+            "links",
+            "symlink"
+          ],
+          "difficulty": "easy",
+          "file": "questions/linux/soft-vs-hard-links.md"
+        },
+        {
+          "slug": "virtual-memory",
+          "title": "What is the Linux virtual memory system?",
+          "tags": [
+            "linux",
+            "memory",
+            "virtual-memory",
+            "paging"
+          ],
+          "difficulty": "hard",
+          "file": "questions/linux/virtual-memory.md"
+        },
+        {
+          "slug": "zombie-process",
+          "title": "What is a zombie process?",
+          "tags": [
+            "linux",
+            "process",
+            "zombie",
+            "wait"
+          ],
+          "difficulty": "medium",
+          "file": "questions/linux/zombie-process.md"
+        }
+      ]
+    },
+    {
+      "key": "coa",
+      "label": "COA",
+      "icon": "coa",
+      "questions": [
+        {
+          "slug": "amdahls-law",
+          "title": "What is Amdahl's Law?",
+          "tags": [
+            "coa",
+            "parallelism",
+            "performance",
+            "scaling"
+          ],
+          "difficulty": "medium",
+          "file": "questions/coa/amdahls-law.md"
+        },
+        {
+          "slug": "cache-coherence",
+          "title": "What is cache coherence?",
+          "tags": [
+            "coa",
+            "cache",
+            "MESI",
+            "multiprocessor"
+          ],
+          "difficulty": "hard",
+          "file": "questions/coa/cache-coherence.md"
+        },
+        {
+          "slug": "memory-barriers",
+          "title": "What are memory barriers and why are they needed?",
+          "tags": [
+            "coa",
+            "memory-barriers",
+            "concurrency",
+            "ordering"
+          ],
+          "difficulty": "hard",
+          "file": "questions/coa/memory-barriers.md"
+        },
+        {
+          "slug": "out-of-order",
+          "title": "What is out-of-order execution?",
+          "tags": [
+            "coa",
+            "OoO",
+            "CPU",
+            "performance"
+          ],
+          "difficulty": "hard",
+          "file": "questions/coa/out-of-order.md"
+        },
+        {
+          "slug": "paging",
+          "title": "What is virtual memory and how does paging work?",
+          "tags": [
+            "coa",
+            "virtual-memory",
+            "paging",
+            "TLB"
+          ],
+          "difficulty": "hard",
+          "file": "questions/coa/paging.md"
+        },
+        {
+          "slug": "pipelining",
+          "title": "What is pipelining and what are pipeline hazards?",
+          "tags": [
+            "coa",
+            "pipelining",
+            "hazards",
+            "CPU"
+          ],
+          "difficulty": "hard",
+          "file": "questions/coa/pipelining.md"
+        },
+        {
+          "slug": "risc-vs-cisc",
+          "title": "What is the difference between RISC and CISC?",
+          "tags": [
+            "coa",
+            "RISC",
+            "CISC",
+            "architecture",
+            "ISA"
+          ],
+          "difficulty": "medium",
+          "file": "questions/coa/risc-vs-cisc.md"
+        },
+        {
+          "slug": "tlb",
+          "title": "What is a TLB and why does it matter for performance?",
+          "tags": [
+            "coa",
+            "TLB",
+            "memory",
+            "performance"
+          ],
+          "difficulty": "medium",
+          "file": "questions/coa/tlb.md"
+        }
+      ]
+    },
+    {
+      "key": "networking",
+      "label": "Networking",
+      "icon": "networking",
+      "questions": [
+        {
+          "slug": "dns",
+          "title": "What is DNS and how does resolution work?",
+          "tags": [
+            "networking",
+            "DNS",
+            "nameserver",
+            "resolution"
+          ],
+          "difficulty": "medium",
+          "file": "questions/networking/dns.md"
+        },
+        {
+          "slug": "nat",
+          "title": "What is NAT?",
+          "tags": [
+            "networking",
+            "NAT",
+            "routing",
+            "firewall"
+          ],
+          "difficulty": "medium",
+          "file": "questions/networking/nat.md"
+        },
+        {
+          "slug": "osi-model",
+          "title": "What is the OSI model?",
+          "tags": [
+            "networking",
+            "OSI",
+            "layers",
+            "protocols"
+          ],
+          "difficulty": "easy",
+          "file": "questions/networking/osi-model.md"
+        },
+        {
+          "slug": "subnet-cidr",
+          "title": "What is a subnet and CIDR notation?",
+          "tags": [
+            "networking",
+            "subnet",
+            "CIDR",
+            "IP"
+          ],
+          "difficulty": "medium",
+          "file": "questions/networking/subnet-cidr.md"
+        },
+        {
+          "slug": "tcp-handshake",
+          "title": "What is the TCP three-way handshake?",
+          "tags": [
+            "networking",
+            "TCP",
+            "handshake",
+            "connection"
+          ],
+          "difficulty": "medium",
+          "file": "questions/networking/tcp-handshake.md"
+        },
+        {
+          "slug": "tcp-vs-udp",
+          "title": "What is the difference between TCP and UDP?",
+          "tags": [
+            "networking",
+            "TCP",
+            "UDP",
+            "transport"
+          ],
+          "difficulty": "easy",
+          "file": "questions/networking/tcp-vs-udp.md"
+        },
+        {
+          "slug": "tls",
+          "title": "What is TLS and how does the handshake work?",
+          "tags": [
+            "networking",
+            "TLS",
+            "security",
+            "encryption",
+            "HTTPS"
+          ],
+          "difficulty": "hard",
+          "file": "questions/networking/tls.md"
+        },
+        {
+          "slug": "url-in-browser",
+          "title": "What happens when you type a URL in a browser?",
+          "tags": [
+            "networking",
+            "DNS",
+            "TCP",
+            "TLS",
+            "HTTP",
+            "browser"
+          ],
+          "difficulty": "medium",
+          "file": "questions/networking/url-in-browser.md"
+        }
+      ]
+    },
+    {
+      "key": "cpp",
+      "label": "C++",
+      "icon": "cpp",
+      "questions": [
+        {
+          "slug": "lvalue-rvalue",
+          "title": "What are lvalue and rvalue references?",
+          "tags": [
+            "cpp",
+            "lvalue",
+            "rvalue",
+            "move-semantics"
+          ],
+          "difficulty": "hard",
+          "file": "questions/cpp/lvalue-rvalue.md"
+        },
+        {
+          "slug": "raii",
+          "title": "What is RAII?",
+          "tags": [
+            "cpp",
+            "RAII",
+            "resource-management",
+            "exceptions"
+          ],
+          "difficulty": "medium",
+          "file": "questions/cpp/raii.md"
+        },
+        {
+          "slug": "rule-of-five",
+          "title": "What is the Rule of Five in C++?",
+          "tags": [
+            "cpp",
+            "rule-of-five",
+            "RAII",
+            "special-members"
+          ],
+          "difficulty": "medium",
+          "file": "questions/cpp/rule-of-five.md"
+        },
+        {
+          "slug": "smart-pointers",
+          "title": "What is the difference between unique_ptr, shared_ptr, and weak_ptr?",
+          "tags": [
+            "cpp",
+            "smart-pointers",
+            "memory",
+            "ownership"
+          ],
+          "difficulty": "medium",
+          "file": "questions/cpp/smart-pointers.md"
+        },
+        {
+          "slug": "std-move",
+          "title": "What is std::move and when should you use it?",
+          "tags": [
+            "cpp",
+            "move",
+            "performance",
+            "ownership"
+          ],
+          "difficulty": "medium",
+          "file": "questions/cpp/std-move.md"
+        },
+        {
+          "slug": "template-metaprogramming",
+          "title": "What is template metaprogramming?",
+          "tags": [
+            "cpp",
+            "templates",
+            "metaprogramming",
+            "constexpr"
+          ],
+          "difficulty": "hard",
+          "file": "questions/cpp/template-metaprogramming.md"
+        },
+        {
+          "slug": "undefined-behavior",
+          "title": "What is undefined behavior in C++?",
+          "tags": [
+            "cpp",
+            "undefined-behavior",
+            "safety",
+            "sanitizers"
+          ],
+          "difficulty": "medium",
+          "file": "questions/cpp/undefined-behavior.md"
+        },
+        {
+          "slug": "vtable",
+          "title": "What is virtual dispatch and the vtable?",
+          "tags": [
+            "cpp",
+            "polymorphism",
+            "vtable",
+            "virtual",
+            "OOP"
+          ],
+          "difficulty": "hard",
+          "file": "questions/cpp/vtable.md"
+        }
+      ]
+    },
+    {
+      "key": "ml",
+      "label": "ML",
+      "icon": "ml",
+      "questions": [
+        {
+          "slug": "attention",
+          "title": "What is the attention mechanism?",
+          "tags": [
+            "ml",
+            "attention",
+            "transformer",
+            "self-attention"
+          ],
+          "difficulty": "hard",
+          "file": "questions/ml/attention.md"
+        },
+        {
+          "slug": "backpropagation",
+          "title": "What is backpropagation?",
+          "tags": [
+            "ml",
+            "backprop",
+            "neural-networks",
+            "gradients"
+          ],
+          "difficulty": "hard",
+          "file": "questions/ml/backpropagation.md"
+        },
+        {
+          "slug": "batch-normalization",
+          "title": "What is batch normalization?",
+          "tags": [
+            "ml",
+            "batch-norm",
+            "training",
+            "deep-learning"
+          ],
+          "difficulty": "medium",
+          "file": "questions/ml/batch-normalization.md"
+        },
+        {
+          "slug": "bias-variance",
+          "title": "What is the bias-variance tradeoff?",
+          "tags": [
+            "ml",
+            "bias",
+            "variance",
+            "overfitting",
+            "underfitting"
+          ],
+          "difficulty": "medium",
+          "file": "questions/ml/bias-variance.md"
+        },
+        {
+          "slug": "cnn-vs-rnn",
+          "title": "What is the difference between CNN and RNN?",
+          "tags": [
+            "ml",
+            "CNN",
+            "RNN",
+            "architectures"
+          ],
+          "difficulty": "medium",
+          "file": "questions/ml/cnn-vs-rnn.md"
+        },
+        {
+          "slug": "gradient-descent",
+          "title": "What is gradient descent and its variants?",
+          "tags": [
+            "ml",
+            "optimization",
+            "SGD",
+            "Adam"
+          ],
+          "difficulty": "medium",
+          "file": "questions/ml/gradient-descent.md"
+        },
+        {
+          "slug": "overfitting",
+          "title": "What is overfitting and how do you prevent it?",
+          "tags": [
+            "ml",
+            "overfitting",
+            "regularization",
+            "dropout"
+          ],
+          "difficulty": "medium",
+          "file": "questions/ml/overfitting.md"
+        }
+      ]
+    },
+    {
+      "key": "os",
+      "label": "OS",
+      "icon": "os",
+      "questions": [
+        {
+          "slug": "cfs-scheduler",
+          "title": "What is an OS scheduler and how does CFS work?",
+          "tags": [
+            "os",
+            "CFS",
+            "scheduler",
+            "vruntime"
+          ],
+          "difficulty": "hard",
+          "file": "questions/os/cfs-scheduler.md"
+        },
+        {
+          "slug": "context-switch",
+          "title": "What is a context switch?",
+          "tags": [
+            "os",
+            "context-switch",
+            "scheduler",
+            "performance"
+          ],
+          "difficulty": "medium",
+          "file": "questions/os/context-switch.md"
+        },
+        {
+          "slug": "demand-paging",
+          "title": "What is demand paging and page faults?",
+          "tags": [
+            "os",
+            "paging",
+            "page-fault",
+            "memory"
+          ],
+          "difficulty": "hard",
+          "file": "questions/os/demand-paging.md"
+        },
+        {
+          "slug": "memory-layout",
+          "title": "What is virtual memory layout of a Linux process?",
+          "tags": [
+            "os",
+            "memory-layout",
+            "virtual-memory",
+            "ASLR"
+          ],
+          "difficulty": "hard",
+          "file": "questions/os/memory-layout.md"
+        },
+        {
+          "slug": "mmap-vs-readwrite",
+          "title": "What is the difference between mmap and read/write?",
+          "tags": [
+            "os",
+            "mmap",
+            "IO",
+            "file-access"
+          ],
+          "difficulty": "hard",
+          "file": "questions/os/mmap-vs-readwrite.md"
+        },
+        {
+          "slug": "mutex-vs-semaphore",
+          "title": "What is the difference between mutex and semaphore?",
+          "tags": [
+            "os",
+            "mutex",
+            "semaphore",
+            "synchronization"
+          ],
+          "difficulty": "medium",
+          "file": "questions/os/mutex-vs-semaphore.md"
+        },
+        {
+          "slug": "scheduling",
+          "title": "What is the difference between preemptive and cooperative scheduling?",
+          "tags": [
+            "os",
+            "scheduling",
+            "CFS",
+            "preemptive"
+          ],
+          "difficulty": "medium",
+          "file": "questions/os/scheduling.md"
+        }
+      ]
+    },
+    {
+      "key": "debugging",
+      "label": "Debugging",
+      "icon": "debugging",
+      "questions": [
+        {
+          "slug": "address-sanitizer",
+          "title": "What is AddressSanitizer and how does it work?",
+          "tags": [
+            "debugging",
+            "ASan",
+            "memory",
+            "sanitizer"
+          ],
+          "difficulty": "medium",
+          "file": "questions/debugging/address-sanitizer.md"
+        },
+        {
+          "slug": "breakpoints",
+          "title": "What is a breakpoint and how does it work at the hardware level?",
+          "tags": [
+            "debugging",
+            "breakpoint",
+            "INT3",
+            "GDB"
+          ],
+          "difficulty": "hard",
+          "file": "questions/debugging/breakpoints.md"
+        },
+        {
+          "slug": "core-dump",
+          "title": "What is a core dump?",
+          "tags": [
+            "debugging",
+            "core-dump",
+            "crash",
+            "GDB"
+          ],
+          "difficulty": "medium",
+          "file": "questions/debugging/core-dump.md"
+        },
+        {
+          "slug": "deadlock",
+          "title": "How do you debug a deadlock?",
+          "tags": [
+            "debugging",
+            "deadlock",
+            "threads",
+            "concurrency"
+          ],
+          "difficulty": "hard",
+          "file": "questions/debugging/deadlock.md"
+        },
+        {
+          "slug": "gdb-vs-strace",
+          "title": "What is the difference between GDB and strace?",
+          "tags": [
+            "debugging",
+            "GDB",
+            "strace",
+            "tools"
+          ],
+          "difficulty": "easy",
+          "file": "questions/debugging/gdb-vs-strace.md"
+        },
+        {
+          "slug": "race-condition",
+          "title": "What is a race condition?",
+          "tags": [
+            "debugging",
+            "race-condition",
+            "threads",
+            "atomic"
+          ],
+          "difficulty": "medium",
+          "file": "questions/debugging/race-condition.md"
+        },
+        {
+          "slug": "valgrind",
+          "title": "What is Valgrind Memcheck?",
+          "tags": [
+            "debugging",
+            "valgrind",
+            "memory-leak",
+            "profiling"
+          ],
+          "difficulty": "medium",
+          "file": "questions/debugging/valgrind.md"
+        }
+      ]
+    }
+  ]
+}
