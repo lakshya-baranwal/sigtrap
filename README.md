@@ -2,7 +2,9 @@
 
 > **Pause. Inspect. Understand.**
 
-A minimalist, documentation-style static website for developers preparing for systems, Linux, C++, networking, ML, and low-level engineering interviews. Built with zero frameworks — just HTML, CSS, and vanilla JavaScript.
+A minimalist, documentation-style static website for developers preparing for systems, Linux, C++, networking, OS, databases, ML/DL, and low-level engineering interviews. Built with zero frameworks — just HTML, CSS, and vanilla JavaScript.
+
+Live at: **https://sigtrap.vercel.app/**
 
 Inspired by the aesthetics of Linear, Vercel, Raycast, and Notion.
 
@@ -18,7 +20,6 @@ Inspired by the aesthetics of Linear, Vercel, Raycast, and Notion.
 - **Random Question** — Jump to any question across all topics
 - **Light/Dark theme** — Persisted in localStorage
 - **Zero build tools** — No React, no Tailwind, no bundlers
-- **GitHub Pages ready** — Deploy with zero config
 
 ---
 
@@ -26,83 +27,29 @@ Inspired by the aesthetics of Linear, Vercel, Raycast, and Notion.
 
 ```
 sigtrap/
-├── index.html              # Main HTML file
-├── styles.css              # All styles (vanilla CSS)
-├── app.js                  # Application logic (vanilla JS)
-├── manifest.json           # Auto-generated question index
-├── generate_manifest.py    # Script to rebuild manifest.json
+├── index.html              
+├── styles.css              
+├── app.js                  
+├── manifest.json         
+├── generate_manifest.py    
 ├── README.md
-└── questions/              # One folder per topic
-    ├── git/
-    │   ├── fork-vs-clone.md
-    │   ├── merge-conflicts.md
-    │   └── ...
-    ├── linux/
-    │   ├── ptrace.md
-    │   └── ...
+└── questions/              
+    ├── backend-system-design/
     ├── coa/
-    ├── networking/
     ├── cpp/
+    ├── databases/
+    ├── debugging/
+    ├── dl/
+    ├── general/
+    ├── git/
+    ├── important-tips/
+    ├── linux/
     ├── ml/
+    ├── networking/
+    ├── oops/
     ├── os/
-    └── debugging/
-```
-
----
-
-## How to Add a New Question
-
-### 1. Create a Markdown file
-
-Create a new `.md` file in the appropriate topic folder:
-
-```bash
-questions/<topic>/<slug>.md
-```
-
-Example: `questions/linux/epoll.md`
-
-### 2. Add YAML frontmatter
-
-Every question file must start with YAML frontmatter:
-
-```yaml
----
-title: "What is epoll?"
-tags: [linux, epoll, io-multiplexing, event-driven]
-difficulty: medium
----
-```
-
-Fields:
-- **title** (required) — The question text displayed in the sidebar
-- **tags** (required) — Array of lowercase tags for search
-- **difficulty** (required) — One of: `easy`, `medium`, `hard`
-
-### 3. Write the answer body
-
-Write the answer in standard Markdown below the frontmatter. Supported features:
-- Headings (`## Example`)
-- Paragraphs, bold, italic, inline code
-- Fenced code blocks with language (` ```bash `)
-- Unordered and ordered lists
-- Tables
-- Blockquotes
-
-### 4. Regenerate the manifest
-
-```bash
-python3 generate_manifest.py
-```
-
-This scans `questions/` and outputs `manifest.json`.
-
-### 5. Commit and push
-
-```bash
-git add questions/<topic>/<slug>.md manifest.json
-git commit -m "Add question: <title>"
-git push
+    ├── python/
+    └── quant/
 ```
 
 ---
@@ -116,6 +63,92 @@ Revision status is **personal and client-side only**. It is stored in your brows
 - **Green dot** — Mastered
 
 Click the colored dot next to any question to cycle through statuses. Your progress persists across sessions in the same browser.
+
+---
+
+## How to Add a New Question
+
+### 1. Locate or Create the Correct Topic Directory
+
+All questions are stored in Markdown files under the `questions/` directory, organized by topic subfolders:
+
+- **Git & GitHub:** `questions/git/`
+- **Linux:** `questions/linux/`
+- **COA:** `questions/coa/`
+- **Networking:** `questions/networking/`
+- **C++:** `questions/cpp/`
+- **OOPs:** `questions/oops/`
+- **Python:** `questions/python/`
+- **Backend & System Design:** `questions/backend-system-design/`
+- **Databases:** `questions/databases/`
+- **ML:** `questions/ml/`
+- **DL:** `questions/dl/`
+- **OS:** `questions/os/`
+- **Debugging:** `questions/debugging/`
+- **Quant:** `questions/quant/`
+- **General:** `questions/general/`
+- **Important Tips:** `questions/important-tips/`
+
+### 2. Create the Markdown File
+
+Create a new file in the appropriate topic directory using a URL-friendly, kebab-case filename ending with `.md` (e.g., `query-optimization.md`).
+
+### 3. Add Valid YAML Frontmatter
+
+At the very top of your Markdown file, define the frontmatter metadata block between `---` delimiters.
+
+> **Note:** The project uses a custom, lightweight Python frontmatter parser. Follow the spacing and syntax below exactly to ensure it parses successfully.
+
+```yaml
+---
+title: "Your Question Title Here"
+tags: [databases, optimization, sql]
+difficulty: medium
+---
+```
+
+- **title** (required) — Wrap the title in double quotes
+- **tags** (required) — Array of lowercase tags inside square brackets `[...]`, separated by commas
+- **difficulty** (required) — One of: `easy`, `medium`, `hard`
+
+### 4. Write the Content
+
+Below the frontmatter, write the answer using standard Markdown. Supported features:
+- Headings (`## Example`)
+- Paragraphs, bold, italic, inline code
+- Fenced code blocks with language (` ```bash `)
+- Unordered and ordered lists
+- Tables
+- Blockquotes
+
+### 5. Regenerate the Manifest
+
+The frontend relies on `manifest.json` to load the sidebar navigation and list questions. Once your Markdown file is saved, run the generator script from the project root:
+
+```bash
+python3 generate_manifest.py
+```
+
+This script scans the `questions/` directories, validates the YAML frontmatter, and outputs the updated `manifest.json`.
+
+### 6. Commit and Push
+
+```bash
+git add questions/<topic>/<slug>.md manifest.json
+git commit -m "Add question: <title>"
+git push
+```
+
+### Adding a Brand New Topic (Optional)
+
+If your question doesn't fit any existing topic:
+
+1. Create a new directory under `questions/` (e.g., `questions/rust/`).
+2. Open `generate_manifest.py` and:
+   - Add the new topic key, label, and icon identifier to `TOPIC_META`.
+   - Insert the topic key into the desired position in the `TOPIC_ORDER` list.
+3. Add your Markdown file to the new directory.
+4. Run `python3 generate_manifest.py` to rebuild the manifest.
 
 ---
 
@@ -138,17 +171,24 @@ Install the "Live Server" extension and right-click `index.html` → Open with L
 
 ---
 
-## GitHub Pages Deployment
+## Contributing
 
-1. Push this repository to GitHub
-2. Go to **Settings → Pages**
-3. Set source to **Deploy from a branch**
-4. Select the `main` branch and `/ (root)` folder
-5. Click **Save**
+Contributions are welcome! To add or improve content:
 
-Your site will be live at `https://<username>.github.io/<repo>/` within a few minutes.
+1. **Fork** the repository and clone it locally.
+2. Follow the steps in [How to Add a New Question](#how-to-add-a-new-question) to add or edit question files.
+3. Keep answers concise, accurate, and interview-focused. Prefer clear examples and diagrams (in Markdown/ASCII) where helpful.
+4. Test your changes locally using a local HTTP server (see [Running Locally](#running-locally)).
+5. Submit a **pull request** with a clear description of the question(s) added or changed.
 
-No build step required. GitHub Pages serves the static files directly.
+### Contribution Guidelines
+
+- One question per Markdown file, named with a descriptive `kebab-case` slug.
+- Frontmatter (`title`, `tags`, `difficulty`) is mandatory and must follow the existing format.
+- Avoid duplicating existing questions — check the topic folder first.
+- Use proper Markdown formatting (headings, code blocks with language hints, tables) for readability.
+- Keep tone neutral and explanations beginner-friendly where possible, while still being technically precise.
+- Do not commit generated/build artifacts other than `manifest.json`.
 
 ---
 
